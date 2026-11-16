@@ -1,0 +1,19 @@
+name: lorax_global
+
+services:
+  lorax_global:
+    container_name: lorax_global
+    image: nginx:alpine
+    volumes:
+      # Absolute paths so this also works if Portainer runs it from its own checkout.
+      - /home/michael/apps/lorax_global/site:/usr/share/nginx/html:ro
+      - /home/michael/apps/lorax_global/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - '8009:80'
+    restart: unless-stopped
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
